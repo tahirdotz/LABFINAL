@@ -1,0 +1,10 @@
+PrivateCarSaveDetails{licenseNumber='1231', dateAndTime='10/05/2024 03:05:03', fuelAmount='123', totalMoney='10.0'}
+PrivateCarSaveDetails{licenseNumber='123', dateAndTime='10/05/2024 03:06:40', fuelAmount='12', totalMoney='10.0'}
+PrivateCarSaveDetails{licenseNumber='124', dateAndTime='10/05/2024 03:15:13', fuelAmount='124', totalMoney='10.0'}
+PrivateCarSaveDetails{licenseNumber='1231', dateAndTime='10/05/2024 03:16:24', fuelAmount='123', totalMoney='7995.0'}
+PrivateCarSaveDetails{licenseNumber='asda', dateAndTime='10/05/2024 06:12:01', fuelAmount='12', totalMoney='1476.0'}
+PrivateCarSaveDetails{licenseNumber='EFG890', dateAndTime='10/05/2024 06:13:12', fuelAmount='15', totalMoney='975.0'}
+PrivateCarSaveDetails{licenseNumber='ABC456', dateAndTime='29/05/2024 20:02:46', fuelAmount='12', totalMoney='780.0'}
+PrivateCarSaveDetails{licenseNumber='ABC456', dateAndTime='29/05/2024 20:06:10', fuelAmount='12', totalMoney='1476.0'}
+PrivateCarSaveDetails{licenseNumber='ABC456', dateAndTime='29/05/2024 20:10:05', fuelAmount='11', totalMoney='1705.0'}
+PrivateCarSaveDetails{licenseNumber='ABC456', dateAndTime='30/05/2024 19:56:26', fuelAmount='50', totalMoney='3250.0'}

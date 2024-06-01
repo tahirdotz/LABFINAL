@@ -1,47 +1,86 @@
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 public class BRTA {
-    private double octanePrice;
-    private double dieselPrice;
-    private double petrolPrice;
+    private String name;
+    private String licenseNumber;
+    private String phoneNumber;
+    private double amountOfFuel;
+    private double amountOfCashPaid;
 
-    public BRTA(double octanePrice, double dieselPrice, double petrolPrice)
-    {
-        this.octanePrice = octanePrice;
-        this.dieselPrice = dieselPrice;
-        this.petrolPrice = petrolPrice;
+    private final String currentTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+
+    public String getName(){
+        return name;
     }
 
-    public BRTA() {
-
+    public String getPhoneNumber(){
+        return phoneNumber;
     }
 
-    public double getOctanePrice()
-    {
-        return octanePrice;
+    public void setLicenseNumber(String licenseNumber){
+        this.licenseNumber=licenseNumber;
     }
 
-    public void setOctanePrice(double octanePrice)
-    {
-        this.octanePrice = octanePrice;
+    public void setAmountOfFuel(double amountOfFuel){
+        this.amountOfFuel=amountOfFuel;
     }
 
-    public double getDieselPrice()
-    {
-        return dieselPrice;
+    public void setAmountOfCashPaid(double amountOfCashPaid){
+        this.amountOfCashPaid=amountOfCashPaid;
     }
 
-    public void setDieselPrice(double dieselPrice)
-    {
-        this.dieselPrice = dieselPrice;
+    public void readDataFromFile() {
+        try (BufferedReader br = new BufferedReader(new FileReader("UserData.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String checker = licenseNumber;
+                String[] parts = line.split(",");
+                String name = parts[0];
+                String licenseNumber = parts[1];
+                String phoneNumber = parts[2];
+
+                if(licenseNumber.equals(checker)){
+                    this.name = name;
+                    this.phoneNumber = phoneNumber;
+
+                    JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"\n" +
+                            "Amount of fuel refilled : "+amountOfFuel+"\n" +
+                            "Amount of cash paid : "+amountOfCashPaid+"\n" +
+                            "Transaction ID : "+generateTransactionID(licenseNumber, 4)+"\n"+"Time of activity : "+currentTime);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public double getPetrolPrice()
-    {
-        return petrolPrice;
+    public String generateTransactionID(String reference, int n){
+
+        String modified = reference.substring(reference.length()-n);
+        int large = Integer.parseInt(modified);
+
+        int a = (int) (Math.random()*large);
+        int b;
+        int seed;
+
+        do {
+            b = (int) (Math.random() * large);
+            seed = (int) (Math.random() * large);
+        }
+        while (b == a && seed == a);
+
+        return Integer.toHexString((a*seed) + (b%large));
     }
 
-    public void setPetrolPrice(double petrolPrice)
-    {
-        this.petrolPrice = petrolPrice;
-    }
+        public void displayData () {
+            System.out.println("License Number transferred to the BRTA : " + licenseNumber);
+        }
 
 }

@@ -1,1 +1,6 @@
-asdfsdfsdf
+- git add .
+- git commit -m "abc"
+sync fork, update branch
+- git pull origin main
+- git push -u origin main
+contribute, open pull request

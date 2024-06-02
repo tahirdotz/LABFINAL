@@ -163,7 +163,7 @@ public class Graphics extends JFrame {
     private void checkPaymentAndSetData(double amountOfCashPaid, double amountOwed, double amountOfFuel) throws SuspectedFoulPlayException {
         if (amountOfCashPaid < amountOwed) {
             JOptionPane.showMessageDialog(null, "Message sent to : " + controller.getBrta().getPhoneNumber() +
-                    "\nAmount of Cash Paid : " + amountOfCashPaid + "\nAmount Left to Pay : " + amountOwed);
+                    "\nAmount of Cash Paid : " + amountOfCashPaid + "\nAmount Left to Pay : " + (amountOwed-amountOfCashPaid));
             throw new SuspectedFoulPlayException("Amount of cash remaining to be paid : " + (amountOwed - amountOfCashPaid));
         } else {
             controller.setAmountOfFuel(amountOfFuel);

@@ -96,32 +96,8 @@ public class BRTA {
     public void printDigitalReceipt(){
         JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"\n" +
                 "Amount of fuel refilled : "+amountOfFuel+"\n" +
-                "Amount of cash paid : "+amountOfCashPaid+"\n" +
+                "Amount of cash paid : "+amountOfCashPaid+"\n"+//later
                 "Transaction ID : "+generateTransactionID(licenseNumber, 4)+"\n"+"Time of activity : "+currentTime);
-    }
-
-    public void checkValidityOfFuelPrice(int index, double amountOfFuel, double amountOfCashPaid) throws SuspectedFoulPlayException{
-        if(index==0){
-            double check = octanePrice*amountOfFuel;
-            if(amountOfCashPaid<check) {
-                JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"\nAmount Owed : "+check+"\nAmount Paid : "+amountOfCashPaid);
-                throw new SuspectedFoulPlayException("Amount paid is less than amount owed");
-            }
-        }
-        else if(index==1){
-            double check = dieselPrice*amountOfFuel;
-            if(amountOfCashPaid<check) {
-                JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"Amount Owed : "+check+"\nAmount Paid : "+amountOfCashPaid);
-                throw new SuspectedFoulPlayException("Amount paid is less than amount owed");
-            }
-        }
-        else if(index==2){
-            double check = petrolPrice*amountOfFuel;
-            if(amountOfCashPaid<check) {
-                JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"Amount Owed : "+check+"\nAmount Paid : "+amountOfCashPaid);
-                throw new SuspectedFoulPlayException("Amount paid is less than amount owed");
-            }
-        }
     }
 
     public void displayData (){

@@ -40,8 +40,8 @@ public class Controller {
         brta.setAmountOfCashPaid(amountOfCashPaid);
     }
 
-    public Controller(){
-        brta = new BRTA(126, 108.25, 122);
+    public Controller(double octanePrice, double dieselPrice, double petrolPrice){
+        brta = new BRTA(octanePrice, dieselPrice, petrolPrice);
     }
 
     public void sendLicenseNumberToBRTA(){
@@ -69,7 +69,7 @@ public class Controller {
         };
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
-            bw.write(nameOfOwner + "//" + phoneNumber + "//" + licenseNumber + "//" + amountOfFuel + "//" + amountOfCashPaid);
+            bw.write(nameOfOwner + "," + phoneNumber + "," + licenseNumber + "," + amountOfFuel + "," + amountOfCashPaid);
             bw.newLine();
         }
     }

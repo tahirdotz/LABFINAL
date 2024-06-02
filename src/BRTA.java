@@ -14,7 +14,7 @@ public class BRTA {
     private static double octanePrice;
     private static double dieselPrice;
     private static double petrolPrice;
-    private final String currentTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+    private CarbonEmission carbonEmission;
 
     public String getName(){
         return name;
@@ -48,6 +48,10 @@ public class BRTA {
         this.amountOfCashPaid=amountOfCashPaid;
     }
 
+    public void setCarbonEmission(CarbonEmission carbonEmission) {
+        this.carbonEmission = carbonEmission;
+    }
+
     public BRTA(double octanePrice, double dieselPrice, double petrolPrice){
         BRTA.octanePrice = octanePrice;
         BRTA.dieselPrice = dieselPrice;
@@ -55,7 +59,7 @@ public class BRTA {
     }
 
     public void readDataFromFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("UserData.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("BRTAPrivateData.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String checker = licenseNumber;
@@ -72,32 +76,6 @@ public class BRTA {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /******Randomized Hex String generated using a Linear Congruence Generator algorithm*******/
-    public String generateTransactionID(String reference, int n){
-
-        String modified = reference.substring(reference.length()-n);
-        int large = Integer.parseInt(modified);
-
-        int a = (int) (Math.random()*large);
-        int b;
-        int seed;
-
-        do {
-            b = (int) (Math.random() * large);
-            seed = (int) (Math.random() * large);
-        }
-        while (b == a && seed == a);
-
-        return Integer.toHexString((a*seed) + (b%large));
-    }
-
-    public void printDigitalReceipt(){
-        JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"\n" +
-                "Amount of fuel refilled : "+amountOfFuel+"\n" +
-                "Amount of cash paid : "+amountOfCashPaid+"\n"+//later
-                "Transaction ID : "+generateTransactionID(licenseNumber, 4)+"\n"+"Time of activity : "+currentTime);
     }
 
     public void displayData (){

@@ -11,6 +11,7 @@ public class Graphics extends JFrame {
     private final JTextField amountOfFuelInput;
     private final JTextField amountOfCashPaidInput;
     private final JComboBox<String> gasTypeCombo;
+    private final JComboBox<String> vehicleTypeCombo;
     private final Controller controller;
 
     public Graphics(Controller controller) {
@@ -45,7 +46,7 @@ public class Graphics extends JFrame {
 
         JLabel vehicleTypeLabel = new JLabel("Enter Transport Category:");
         vehicleTypeLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        JComboBox<String> vehicleTypeCombo = new JComboBox<>(new String[]{"Private", "Public"});
+        vehicleTypeCombo = new JComboBox<>(new String[]{"Private", "Public"});
 
         JButton submitButton = new JButton("Submit");
         submitButton.setFont(new Font("Arial", Font.BOLD, 14));
@@ -58,11 +59,12 @@ public class Graphics extends JFrame {
                     try{
                         validateLicenseInput();
                         validateFuelInput();
-                        int index2 = vehicleTypeCombo.getSelectedIndex();
-                        controller.writeDataToFile(index2);
-                        controller.getBrta().printDigitalReceipt();
+                        int index = vehicleTypeCombo.getSelectedIndex();
+                        controller.writeDataToFile(index);
+                        controller.printDigitalReceipt();
                     }
-                    catch (InvalidLicenseNumberException | SuspectedFoulPlayException | IOException ex){
+                    catch (InvalidLicenseNumberException | SuspectedFoulPlayException | IOException |
+                           InvalidAmountPaidException ex){
                         ex.printStackTrace();
                     }
 
@@ -131,44 +133,46 @@ public class Graphics extends JFrame {
         else{
             controller.setLicenseNumber(licenseNumber);
             controller.getBrta().readDataFromFile();
+            controller.generateTransactionID(licenseNumber, 4);
             controller.setNameOfOwner(controller.getBrta().getName());
             controller.setPhoneNumber(controller.getBrta().getPhoneNumber());
         }
     }
 
-    private void validateFuelInput() throws SuspectedFoulPlayException{
+    private void validateFuelInput() throws SuspectedFoulPlayException, InvalidAmountPaidException {
 
         double amountOfFuel = Double.parseDouble(amountOfFuelInput.getText());
         double amountOfCashPaid = Double.parseDouble(amountOfCashPaidInput.getText());
-        int index = gasTypeCombo.getSelectedIndex();
+        int index1 = gasTypeCombo.getSelectedIndex();
+        int index2 = vehicleTypeCombo.getSelectedIndex();
 
-        double amountOwed;
-        switch (index) {
-            case 0: // Petrol
-                amountOwed = BRTA.getPetrolPrice();
-                break;
-            case 1: // Octane
-                amountOwed = BRTA.getOctanePrice();
-                break;
-            case 2: // Diesel
-                amountOwed = BRTA.getDieselPrice();
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid fuel type selected");
-        }
+        double amountOwed = switch (index1) {
+            case 0 -> // Petrol
+                    (amountOfFuel*BRTA.getPetrolPrice());
+            case 1 -> // Octane
+                    (amountOfFuel*BRTA.getOctanePrice());
+            case 2 -> // Diesel
+                    (amountOfFuel*BRTA.getDieselPrice());
+            default -> throw new IllegalArgumentException("Invalid fuel type selected");
+        };
 
-        checkPaymentAndSetData(amountOfCashPaid, amountOwed, amountOfFuel);
+        controller.setAmountOwed(amountOwed);
+        controller.addTaxToPayment(index2, amountOfCashPaid);
+
+        calculateTransactionDetails(amountOfCashPaid, controller.getAmountOwed(), amountOfFuel);
     }
 
-    private void checkPaymentAndSetData(double amountOfCashPaid, double amountOwed, double amountOfFuel) throws SuspectedFoulPlayException {
+    public void calculateTransactionDetails(double amountOfCashPaid, double amountOwed, double amountOfFuel) throws SuspectedFoulPlayException, InvalidAmountPaidException{
+
         if (amountOfCashPaid < amountOwed) {
             JOptionPane.showMessageDialog(null, "Message sent to : " + controller.getBrta().getPhoneNumber() +
                     "\nAmount of Cash Paid : " + amountOfCashPaid + "\nAmount Left to Pay : " + (amountOwed-amountOfCashPaid));
-            throw new SuspectedFoulPlayException("Amount of cash remaining to be paid : " + (amountOwed - amountOfCashPaid));
-        } else {
+            throw new SuspectedFoulPlayException("Amount paid is less than amount owed");
+        }
+
+        else {
             controller.setAmountOfFuel(amountOfFuel);
             controller.setAmountOfCashPaid(amountOfCashPaid);
         }
     }
-
 }

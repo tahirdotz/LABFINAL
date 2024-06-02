@@ -1,10 +1,8 @@
 import javax.swing.*;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class BRTA {
@@ -13,7 +11,9 @@ public class BRTA {
     private String phoneNumber;
     private double amountOfFuel;
     private double amountOfCashPaid;
-
+    private static double octanePrice;
+    private static double dieselPrice;
+    private static double petrolPrice;
     private final String currentTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
 
     public String getName(){
@@ -22,6 +22,18 @@ public class BRTA {
 
     public String getPhoneNumber(){
         return phoneNumber;
+    }
+
+    public static double getOctanePrice(){
+        return octanePrice;
+    }
+
+    public static double getDieselPrice(){
+        return dieselPrice;
+    }
+
+    public static double getPetrolPrice(){
+        return petrolPrice;
     }
 
     public void setLicenseNumber(String licenseNumber){
@@ -34,6 +46,12 @@ public class BRTA {
 
     public void setAmountOfCashPaid(double amountOfCashPaid){
         this.amountOfCashPaid=amountOfCashPaid;
+    }
+
+    public BRTA(double octanePrice, double dieselPrice, double petrolPrice){
+        BRTA.octanePrice = octanePrice;
+        BRTA.dieselPrice = dieselPrice;
+        BRTA.petrolPrice = petrolPrice;
     }
 
     public void readDataFromFile() {
@@ -49,11 +67,6 @@ public class BRTA {
                 if(licenseNumber.equals(checker)){
                     this.name = name;
                     this.phoneNumber = phoneNumber;
-
-                    JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"\n" +
-                            "Amount of fuel refilled : "+amountOfFuel+"\n" +
-                            "Amount of cash paid : "+amountOfCashPaid+"\n" +
-                            "Transaction ID : "+generateTransactionID(licenseNumber, 4)+"\n"+"Time of activity : "+currentTime);
                 }
             }
         } catch (IOException e) {
@@ -61,6 +74,7 @@ public class BRTA {
         }
     }
 
+    /******Randomized Hex String generated using a Linear Congruence Generator algorithm*******/
     public String generateTransactionID(String reference, int n){
 
         String modified = reference.substring(reference.length()-n);
@@ -79,7 +93,38 @@ public class BRTA {
         return Integer.toHexString((a*seed) + (b%large));
     }
 
-        public void displayData () {
+    public void printDigitalReceipt(){
+        JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"\n" +
+                "Amount of fuel refilled : "+amountOfFuel+"\n" +
+                "Amount of cash paid : "+amountOfCashPaid+"\n" +
+                "Transaction ID : "+generateTransactionID(licenseNumber, 4)+"\n"+"Time of activity : "+currentTime);
+    }
+
+    public void checkValidityOfFuelPrice(int index, double amountOfFuel, double amountOfCashPaid) throws SuspectedFoulPlayException{
+        if(index==0){
+            double check = octanePrice*amountOfFuel;
+            if(amountOfCashPaid<check) {
+                JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"\nAmount Owed : "+check+"\nAmount Paid : "+amountOfCashPaid);
+                throw new SuspectedFoulPlayException("Amount paid is less than amount owed");
+            }
+        }
+        else if(index==1){
+            double check = dieselPrice*amountOfFuel;
+            if(amountOfCashPaid<check) {
+                JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"Amount Owed : "+check+"\nAmount Paid : "+amountOfCashPaid);
+                throw new SuspectedFoulPlayException("Amount paid is less than amount owed");
+            }
+        }
+        else if(index==2){
+            double check = petrolPrice*amountOfFuel;
+            if(amountOfCashPaid<check) {
+                JOptionPane.showMessageDialog(null,"Message sent to : "+phoneNumber+"Amount Owed : "+check+"\nAmount Paid : "+amountOfCashPaid);
+                throw new SuspectedFoulPlayException("Amount paid is less than amount owed");
+            }
+        }
+    }
+
+    public void displayData (){
             System.out.println("License Number transferred to the BRTA : " + licenseNumber);
         }
 

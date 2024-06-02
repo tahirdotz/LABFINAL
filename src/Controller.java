@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,7 +15,7 @@ public class Controller {
     private double amountOfCashPaid;
     private String nameOfOwner;
     private String phoneNumber;
-    BRTA brta;
+    private final BRTA brta;
 
     public void setLicenseNumber(String licenseNumber){
         this.licenseNumber=licenseNumber;
@@ -37,19 +41,37 @@ public class Controller {
     }
 
     public Controller(){
-        brta = new BRTA();
+        brta = new BRTA(126, 108.25, 122);
     }
 
     public void sendLicenseNumberToBRTA(){
         brta.setLicenseNumber(licenseNumber);
     }
 
-    public void displayLicenseNumber(){
-        //System.out.println("License Number Transferred to the Controller : " + licenseNumber);
-        //System.out.println(amountOfFuel);
-        //System.out.println(amountOfCashPaid);
-        //brta.displayLicenseNumber();
+    public BRTA getBrta(){
+        return brta;
+    }
 
+    public void displayLicenseNumber(){
+        System.out.println("License Number Transferred to the Controller : " + licenseNumber);
+        System.out.println(amountOfFuel);
+        System.out.println(amountOfCashPaid);
+        brta.displayData();
+
+    }
+
+    public void writeDataToFile(int index) throws IOException {
+
+        File file = switch (index) {
+            case 0 -> new File("PrivateTransportDatabase.txt");
+            case 1 -> new File("PublicTransportDatabase.txt");
+            default -> throw new IllegalArgumentException("Invalid index: " + index);
+        };
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
+            bw.write(nameOfOwner + "//" + phoneNumber + "//" + licenseNumber + "//" + amountOfFuel + "//" + amountOfCashPaid);
+            bw.newLine();
+        }
     }
     
 

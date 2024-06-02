@@ -65,7 +65,7 @@ public class Graphics extends JFrame {
                     }
                     catch (InvalidLicenseNumberException | SuspectedFoulPlayException | IOException |
                            InvalidAmountPaidException ex){
-                        ex.printStackTrace();
+                        System.out.println(ex.getMessage());
                     }
 
 
@@ -128,11 +128,11 @@ public class Graphics extends JFrame {
 
         if(!(matcher.matches())){
             JOptionPane.showMessageDialog(Graphics.this,"Invalid License Number");
-            throw new InvalidLicenseNumberException("Invalid License Number");
+            throw new InvalidLicenseNumberException("No such registered vehicle is found");
         }
         else{
             controller.setLicenseNumber(licenseNumber);
-            controller.getBrta().readDataFromFile();
+            controller.readDataFromFile(vehicleTypeCombo.getSelectedIndex());
             controller.generateTransactionID(licenseNumber, 4);
             controller.setNameOfOwner(controller.getBrta().getName());
             controller.setPhoneNumber(controller.getBrta().getPhoneNumber());
@@ -157,7 +157,10 @@ public class Graphics extends JFrame {
         };
 
         controller.setAmountOwed(amountOwed);
-        controller.addTaxToPayment(index2, amountOfCashPaid);
+
+        if(index2 == 0) {
+            controller.addTaxToPayment(amountOfFuel);
+        }
 
         calculateTransactionDetails(amountOfCashPaid, controller.getAmountOwed(), amountOfFuel);
     }

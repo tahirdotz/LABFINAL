@@ -38,12 +38,10 @@ public class Controller {
 
     public void setAmountOfFuel(double amountOfFuel){
         this.amountOfFuel=amountOfFuel;
-        brta.setAmountOfFuel(amountOfFuel);
     }
 
     public void setAmountOfCashPaid(double amountOfCashPaid){
         this.amountOfCashPaid=amountOfCashPaid;
-        brta.setAmountOfCashPaid(amountOfCashPaid);
     }
 
     public double getAmountOwed(){
@@ -56,12 +54,7 @@ public class Controller {
     public Controller(double octanePrice, double dieselPrice, double petrolPrice){
         carbonEmission = new CarbonEmission();
         brta = new BRTA(octanePrice, dieselPrice, petrolPrice);
-        brta.setCarbonEmission(carbonEmission);
     }
-
-    /*public void sendLicenseNumberToBRTA(){
-        brta.setLicenseNumber(licenseNumber);
-    }*/
 
     public BRTA getBrta(){
         return brta;
@@ -74,24 +67,17 @@ public class Controller {
         brta.displayData();
     }
 
-    public void calculateAmountOwed(int index){
-
-
+    public void readDataFromFile(int index) throws InvalidLicenseNumberException{
+        brta.readDataFromFile(index);
     }
-
-    public void addTaxToPayment(int index, double amountOfCashPaid) throws InvalidAmountPaidException {
+    public void addTaxToPayment(double amountOfFuel) throws InvalidAmountPaidException {
 
         carbonEmission.calculateTotalFuelAmount(licenseNumber);
         double check = carbonEmission.getTotalAmount();
 
-        if(index==0) {
-            if (check == 0) {
-                if (amountOwed > 50) {
-                    amountOwed *= 1.1;
-                }
-            } else if (check > 50) {
-                amountOwed *= 1.1;
-            }
+        if(check+amountOfFuel>50){
+            amountOwed*=1.1;
+            System.out.println("Total fuel refilled this month is "+(check+amountOfFuel));
         }
     }
 

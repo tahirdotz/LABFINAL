@@ -10,10 +10,16 @@ public class CarbonEmission {
 
         try (BufferedReader br = new BufferedReader(new FileReader("PrivateTransportDatabase.txt"))) {
             String line;
+
             while((line = br.readLine())!=null){
+
                 String[] parts = line.split(",");
-                double fuelAmount = Double.parseDouble(parts[3]);
-                totalAmount+=fuelAmount;
+
+                if(parts[2].equals(licenseNumber)) {
+                    double fuelAmount = Double.parseDouble(parts[3]);
+                    totalAmount += fuelAmount;
+                }
+
             }
         }
         catch (IOException e) {

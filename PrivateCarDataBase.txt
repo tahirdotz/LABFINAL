@@ -1,8 +1,0 @@
-
-LicenseNumber: ABC456, DateAndTime: 02/06/2024 20:15:53, FuelAmount: 12, TotalMoney: 780.0
-LicenseNumber: XYZ123, DateAndTime: 02/06/2024 20:16:00, FuelAmount: 12, TotalMoney: 780.0
-LicenseNumber: ABC456, DateAndTime: 02/06/2024 20:18:05, FuelAmount: 12, TotalMoney: 780.0
-LicenseNumber: ABC456, DateAndTime: 02/06/2024 20:19:12, FuelAmount: 12, TotalMoney: 780.0
-LicenseNumber: XYZ123, DateAndTime: 02/06/2024 20:19:21, FuelAmount: 12, TotalMoney: 780.0
-LicenseNumber: XYZ123, DateAndTime: 02/06/2024 20:19:31, FuelAmount: 100, TotalMoney: 6500.0
-LicenseNumber: ABC456, DateAndTime: 02/06/2024 20:19:49, FuelAmount: 11, TotalMoney: 715.0

@@ -12,14 +12,15 @@ import java.awt.FlowLayout;
 import java.util.ArrayList;
 
 public class Controller {
+    private String nameOfOwner;
+    private String phoneNumber;
     private String licenseNumber;
     private double amountOfFuel;
     private double amountOfCashPaid;
     private double amountOwed;
-    private String nameOfOwner;
-    private String phoneNumber;
     private String transactionID;
     private final String currentTime = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(new Date());
+    private int i = 0;
     private final CarbonEmission carbonEmission;
     private final BRTA brta;
 
@@ -77,6 +78,7 @@ public class Controller {
 
         if(check+amountOfFuel>50){
             amountOwed*=1.1;
+            i++;
             System.out.println("Total fuel refilled this month is "+(check+amountOfFuel));
         }
     }
@@ -101,11 +103,21 @@ public class Controller {
     }
 
     public void printDigitalReceipt(){
+            if(i!=0){
+                double initialAmountOwed = amountOwed/1.1;
 
-        JOptionPane.showMessageDialog(null,"Message sent to : "+brta.getPhoneNumber()+"\n" +
-                "Amount of fuel refilled : "+amountOfFuel+"\n" +
-                "Amount of cash paid : "+amountOfCashPaid+"\n"+"Amount Owed : "+amountOwed+"\n"+//later
-                "Transaction ID : "+transactionID+"\n"+"Time of activity : "+currentTime);
+                JOptionPane.showMessageDialog(null,"Message sent to : "+brta.getPhoneNumber()+"\n" +
+                        "Amount of fuel refilled : "+amountOfFuel+"\n" +
+                        "Amount of cash paid : "+amountOfCashPaid+"\n"+"Amount Owed : "+amountOwed+"\n"+"Extra Charge (Additional 10%): "+(amountOwed-initialAmountOwed)+"\n"+
+                        "Transaction ID : "+transactionID+"\n"+"Time of activity : "+currentTime);
+                i=0;
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Message sent to : " + brta.getPhoneNumber() + "\n" +
+                        "Amount of fuel refilled : " + amountOfFuel + "\n" +
+                        "Amount of cash paid : " + amountOfCashPaid + "\n" + "Amount Owed : " + amountOwed + "\n" +//later
+                        "Transaction ID : " + transactionID + "\n" + "Time of activity : " + currentTime);
+            }
     }
 
 

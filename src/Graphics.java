@@ -64,15 +64,15 @@ public class Graphics extends JFrame {
                         controller.printDigitalReceipt();
                     }
                     catch (InvalidLicenseNumberException | SuspectedFoulPlayException | IOException |
-                           InvalidAmountPaidException ex){
-                        System.out.println(ex.getMessage());
+                           InvalidAmountPaidException | NumberFormatException ex){
+                           System.out.println("An unexpected problem occurred."+ ex.getMessage());
                     }
 
 
                     /**************Test Code
                      Used to test whether input reached the Controller and BRTA instance properly
-                    //controller.displayLicenseNumber();
-                    //JOptionPane.showMessageDialog(Graphics.this, "You entered the license number " + licenseNumber);
+                    controller.displayLicenseNumber();
+                    JOptionPane.showMessageDialog(Graphics.this, "You entered the license number " + licenseNumber);
                      ***********************/
             }
         });
@@ -139,7 +139,7 @@ public class Graphics extends JFrame {
         }
     }
 
-    private void validateFuelInput() throws SuspectedFoulPlayException, InvalidAmountPaidException {
+    private void validateFuelInput() throws SuspectedFoulPlayException, InvalidAmountPaidException, NumberFormatException {
 
         double amountOfFuel = Double.parseDouble(amountOfFuelInput.getText());
         double amountOfCashPaid = Double.parseDouble(amountOfCashPaidInput.getText());
@@ -165,7 +165,7 @@ public class Graphics extends JFrame {
         calculateTransactionDetails(amountOfCashPaid, controller.getAmountOwed(), amountOfFuel);
     }
 
-    public void calculateTransactionDetails(double amountOfCashPaid, double amountOwed, double amountOfFuel) throws SuspectedFoulPlayException, InvalidAmountPaidException{
+    private void calculateTransactionDetails(double amountOfCashPaid, double amountOwed, double amountOfFuel) throws SuspectedFoulPlayException, InvalidAmountPaidException{
 
         if (amountOfCashPaid < amountOwed) {
             JOptionPane.showMessageDialog(null, "Message sent to : " + controller.getBrta().getPhoneNumber() +

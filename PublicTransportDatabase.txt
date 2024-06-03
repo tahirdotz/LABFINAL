@@ -1,4 +1,4 @@
-Mary Brown,01349321867,DHAKA METRO CHA-6758,51.0,5610.0,145be9b
-Mia Baker,01363092514,DHAKA METRO GA-4718,1.0,110.0,cbbf3d
-Mason Carter,01774168209,DHAKA METRO KA-8274,1.0,110.0,1bc1cfc
-Mason Carter,01774168209,DHAKA METRO KA-8274,50.0,5500.0,f9fd8c
+LicenseNumber: XYZ123, DateAndTime: 02/06/2024 13:43:20, FuelAmount: 12, TotalMoney: 780.0
+LicenseNumber: XYZ123, DateAndTime: 02/06/2024 15:58:03, FuelAmount: 12, TotalMoney: 780.0
+LicenseNumber: XYZ123, DateAndTime: 02/06/2024 18:23:19, FuelAmount: 122, TotalMoney: 7930.0
+LicenseNumber: XYZ123, DateAndTime: 02/06/2024 19:26:50, FuelAmount: 12, TotalMoney: 780.0

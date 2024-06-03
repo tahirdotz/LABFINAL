@@ -84,6 +84,6 @@ public class BRTA {
 
     public void displayData (){
             System.out.println("License Number transferred to the BRTA : " + licenseNumber);
-        }
+    }
 
 }

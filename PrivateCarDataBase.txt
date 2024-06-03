@@ -1,7 +1,8 @@
-PrivateCarSaveDetails{licenseNumber='1234', dateAndTime='10/05/2024 01:39:31', fuelAmount='12', totalMoney='1476.0'}
-PrivateCarSaveDetails{licenseNumber='12', dateAndTime='10/05/2024 01:45:01', fuelAmount='12', totalMoney='0.0'}
-PrivateCarSaveDetails{licenseNumber='1241', dateAndTime='10/05/2024 01:51:12', fuelAmount='14', totalMoney='10.0'}
-PrivateCarSaveDetails{licenseNumber='12341', dateAndTime='10/05/2024 02:26:29', fuelAmount='12.0', totalMoney='10.0'}
-PrivateCarSaveDetails{licenseNumber='12312', dateAndTime='10/05/2024 02:27:06', fuelAmount='12.0', totalMoney='10.0'}
-PrivateCarSaveDetails{licenseNumber='123122', dateAndTime='10/05/2024 02:28:28', fuelAmount='12.0', totalMoney='10.0'}
-PrivateCarSaveDetails{licenseNumber='123122', dateAndTime='10/05/2024 02:28:29', fuelAmount='12.0', totalMoney='10.0'}
+
+LicenseNumber: ABC456, DateAndTime: 02/06/2024 20:15:53, FuelAmount: 12, TotalMoney: 780.0
+LicenseNumber: XYZ123, DateAndTime: 02/06/2024 20:16:00, FuelAmount: 12, TotalMoney: 780.0
+LicenseNumber: ABC456, DateAndTime: 02/06/2024 20:18:05, FuelAmount: 12, TotalMoney: 780.0
+LicenseNumber: ABC456, DateAndTime: 02/06/2024 20:19:12, FuelAmount: 12, TotalMoney: 780.0
+LicenseNumber: XYZ123, DateAndTime: 02/06/2024 20:19:21, FuelAmount: 12, TotalMoney: 780.0
+LicenseNumber: XYZ123, DateAndTime: 02/06/2024 20:19:31, FuelAmount: 100, TotalMoney: 6500.0
+LicenseNumber: ABC456, DateAndTime: 02/06/2024 20:19:49, FuelAmount: 11, TotalMoney: 715.0
